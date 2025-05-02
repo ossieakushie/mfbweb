@@ -3,201 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Match-Fit Ballers - Client Intake Form</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <title>Elite Football Performance | Personal Coaching</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #e74c3c;
-            --secondary-color: #2c3e50;
+        .grass-bg {
+            background-image: url('https://images.unsplash.com/photo-1543357481-d6d7673f7d7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
         }
-
-        body {
-            background: #e8f2e3;
-            padding: 2rem 0;
+        
+        .grass-overlay {
+            background: rgba(0, 100, 0, 0.4);
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 3rem;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        
+        .video-placeholder {
+            background: linear-gradient(135deg, #1a3a1a, #2d5a2d);
         }
-
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
+        
+        .image-placeholder {
+            background: linear-gradient(135deg, #2d5a2d, #1a3a1a);
         }
-
-        .logo {
-            max-width: 200px;
-            margin-bottom: 1.5rem;
+        
+        .stats-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+        
+        .nav-link {
+            position: relative;
         }
-
-        .required {
-            color: var(--primary-color);
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
         }
-
-        .timeslots {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem 1rem;
-        }
-
-        .timeslots label {
-            width: calc(50% - 1rem);
-        }
-
-        .day-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .slots-container {
-            margin-top: 0.5rem;
-            display: none;
+        
+        .nav-link:hover::after {
+            width: 100%;
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <div class="header">
-        <img src="images/logo.png" alt="Match-Fit Ballers Logo" class="logo">
-        <h1>Register Your Interest</h1>
-        <p>Submit your availability and goals below — The personal coach will be in touch to arrange a suitable consultation session.</p>
-    </div>
-
-    <form action="https://formspree.io/f/xgvkvzdp" method="POST">
-        <label for="name">Player's Name <span class="required">*</span></label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="Player's age">Age <span class="required">*</span></label>
-        <input type="number" id="age" name="age" min="8" max="18" required>
-
-        <label for="name">Parent/Guardian's Name <span class="required">*</span></label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email <span class="required">*</span></label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone">
-
-        <label for="sport">Primary Sport <span class="required">*</span></label>
-        <select id="sport" name="sport" required>
-            <option value="">Select Sport</option>
-            <option>Football</option>
-            <option>Rugby</option>
-            <option>Athletics</option>
-            <option>Basketball</option>
-            <option>Other</option>
-        </select>
-
-        <label>What are your main goals? <span class="required">*</span></label>
-        <label><input type="checkbox" name="goals" value="Strength Building"> Strength Building</label>
-        <label><input type="checkbox" name="goals" value="Speed Improvement"> Speed Improvement</label>
-        <label><input type="checkbox" name="goals" value="Endurance Training"> Endurance Training</label>
-        <label><input type="checkbox" name="goals" value="Injury Prevention"> Injury Prevention</label>
-		<label><input type="checkbox" name="goals" value="Attacking"> Attacking</label>
-        <label><input type="checkbox" name="goals" value="Defending"> Defending</label>
-        <input type="text" name="goals_details" placeholder="Other or more details...">
-        <label>Preferred Session Days & Times <span class="required">*</span></label>
-        <p>Performance sessions will run in the 2025 Schools summer break between Saturday 12 July - Sunday 12 August </p>
-        <div id="days">
-            <div class="day-group">
-                <label><input type="checkbox" name="days" value="Monday" onchange="toggleSlots('Monday')"> Monday</label>
-                <div id="slots-Monday" class="slots-container timeslots"></div>
+<body class="font-sans text-white">
+    <!-- Hero Section with Grass Background -->
+    <section class="grass-bg min-h-screen flex items-center justify-center relative">
+        <div class="grass-overlay absolute inset-0"></div>
+        <div class="container mx-auto px-6 z-10">
+            <nav class="flex justify-between items-center py-6">
+                <div class="text-2xl font-bold">
+                    <span class="text-green-300">ELITE</span>
+                    <span class="text-white">FOOTBALL</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#testimonials" class="nav-link">Testimonials</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </nav>
+            
+            <div class="text-center py-20">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    <span class="text-green-300">ELEVATE</span> YOUR GAME
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto">
+                    Personal football performance coaching tailored to your unique strengths and goals
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#contact" class="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-full font-bold transition duration-300">
+                        GET STARTED
+                    </a>
+                    <a href="#services" class="border-2 border-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-full font-bold transition duration-300">
+                        LEARN MORE
+                    </a>
+                </div>
             </div>
-            <div class="day-group">
-                <label><input type="checkbox" name="days" value="Tuesday" onchange="toggleSlots('Tuesday')"> Tuesday</label>
-                <div id="slots-Tuesday" class="slots-container timeslots"></div>
-            </div>
-            <div class="day-group">
-                <label><input type="checkbox" name="days" value="Wednesday" onchange="toggleSlots('Wednesday')"> Wednesday</label>
-                <div id="slots-Wednesday" class="slots-container timeslots"></div>
-            </div>
-            <div class="day-group">
-                <label><input type="checkbox" name="days" value="Thursday" onchange="toggleSlots('Thursday')"> Thursday</label>
-                <div id="slots-Thursday" class="slots-container timeslots"></div>
-            </div>
-            <div class="day-group">
-                <label><input type="checkbox" name="days" value="Friday" onchange="toggleSlots('Friday')"> Friday</label>
-                <div id="slots-Friday" class="slots-container timeslots"></div>
-            </div>
-            <div class="day-group">
-                <label><input type="checkbox" name="days" value="Saturday" onchange="toggleSlots('Saturday')"> Saturday</label>
-                <div id="slots-Saturday" class="slots-container timeslots"></div>
-            </div>
-            <div class="day-group">
-                <label><input type="checkbox" name="days" value="Sunday" onchange="toggleSlots('Sunday')"> Sunday</label>
-                <div id="slots-Sunday" class="slots-container timeslots"></div>
+            
+            <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+                <a href="#about" class="animate-bounce">
+                    <i class="fas fa-chevron-down text-2xl"></i>
+                </a>
             </div>
         </div>
-
-        <label for="message">Additional Information</label>
-        <textarea id="message" name="message" rows="3" placeholder="Any injuries, special requirements, or questions..."></textarea>
-
-        <button type="submit" class="button button-primary">Submit Application</button>
-    </form>
-</div>
-
-<script>
-    const weekdaySlots = [
-        "06:30 to 08:00 am",
-        "08:30 to 10:00 am",
-        "18:30 to 20:00 pm",
-        "20:30 to 22:00 pm"
-    ];
-
-    const weekendSlots = [
-        "06:30 to 08:00 am",
-        "08:30 to 10:00 am",
-        "10:30 to 12:00 md",
-        "12:30 to 14:00 pm",
-        "14:30 to 16:00 pm",
-        "16:30 to 18:00 pm",
-        "18:30 to 20:00 pm",
-        "20:30 to 22:00 pm"
-    ];
-
-    function generateTimeSlots(day) {
-        const container = document.getElementById(`slots-${day}`);
-        container.innerHTML = "";
-
-        const slots = isWeekday(day) ? weekdaySlots : weekendSlots;
-
-        slots.forEach(slot => {
-            const input = document.createElement("input");
-            input.type = "checkbox";
-            input.name = `${day}-timeslot`;
-            input.value = slot;
-
-            const lbl = document.createElement("label");
-            lbl.appendChild(input);
-            lbl.appendChild(document.createTextNode(" " + slot));
-
-            container.appendChild(lbl);
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">ABOUT THE COACH</h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <div class="image-placeholder rounded-lg overflow-hidden h-96 w-full flex items-center justify-center">
+                        <i class="fas fa-user text-6xl text-gray-300"></i>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-3xl font-bold mb-6">Professional Football Performance Coach</h3>
+                    <p class="text-lg mb-6">
+                        With over 10 years of experience training elite athletes, I've developed a proven system to help football players maximize their potential. My approach combines technical skill development, tactical awareness, physical conditioning, and mental toughness training.
+                    </p>
+                    <p class="text-lg mb-8">
+                        I've worked with players at all levels, from youth academy prospects to professional athletes, helping them improve their performance and achieve their football dreams.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="stats-card p-4 rounded-lg">
+                            <div class="text-green-400 text-3xl font-bold mb-2">10+</div>
+                            <div class="text-sm">Years Experience</div>
+                        </div>
+                        <div class="stats-card p-4 rounded-lg">
+                            <div class="text-green-400 text-3xl font-bold mb-2">100+</div>
+                            <div class="text-sm">Players Trained</div>
+                        </div>
+                        <div class="stats-card p-4 rounded-lg">
+                            <div class="text-green-400 text-3xl font-bold mb-2">15+</div>
+                            <div class="text-sm">Professional Contracts</div>
+                        </div>
+                        <div class="stats-card p-4 rounded-lg">
+                            <div class="text-green-400 text-3xl font-bold mb-2">50+</div>
+                            <div class="text-sm">College Scholarships</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Video Showcase -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">TRAINING IN ACTION</h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto"></div>
+            </div>
+            
+            <div class="video-placeholder rounded-xl overflow-hidden h-96 w-full flex items-center justify-center">
+                <i class="fas fa-play-circle text-6xl text-gray-300"></i>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+                <div class="image-placeholder rounded-lg overflow-hidden h-64 w-full flex items-center justify-center">
+                    <i class="fas fa-image text-4xl text-gray-300"></i>
+                </div>
+                <div class="image-placeholder rounded-lg overflow-hidden h-64 w-full flex items-center justify-center">
+                    <i class="fas fa-image text-4xl text-gray-300"></i>
+                </div>
+                <div class="image-placeholder rounded-lg overflow-hidden h-64 w-full flex items-center justify-center">
+                    <i class="fas fa-image text-4xl text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">COACHING SERVICES</h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 rounded-xl p-8 hover:transform hover:scale-105 transition duration-300">
+                    <div class="text-green-400 text-4xl mb-4">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Individual Training</h3>
+                    <p class="mb-6">
+                        One-on-one sessions focused on your specific needs, whether it's technical skills, tactical understanding, or physical conditioning.
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Customized training plan
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Video analysis
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Performance tracking
+                        </li>
+                    </ul>
+                    <div class="text-xl font-bold text-green-400 mb-4">From $99/session</div>
+                    <a href="#contact" class="inline-block bg-green-600 hover:bg-green-700 px-6 py-2 rounded-full font-bold transition duration-300">
+                        BOOK NOW
+                    </a>
+                </div>
+                
+                <div class="bg-gray-800 rounded-xl p-8 hover:transform hover:scale-105 transition duration-300 border-2 border-green-500 relative">
+                    <div class="absolute top-0 right-0 bg-green-500 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                        MOST POPULAR
+                    </div>
+                    <div class="text-green-400 text-4xl mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Small Group Training</h3>
+                    <p class="mb-6">
+                        Train with 2-4 players of similar ability for competitive drills and game-like scenarios at a more affordable rate.
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Competitive environment
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Position-specific training
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Game situation drills
+                        </li>
+                    </ul>
+                    <div class="text-xl font-bold text-green-400 mb-4">From $65/session</div>
+                    <a href="#contact" class="inline-block bg-green-600 hover:bg-green-700 px-6 py-2 rounded-full font-bold transition duration-300">
+                        BOOK NOW
+                    </a>
+                </div>
+                
+                <div class="bg-gray-800 rounded-xl p-8 hover:transform hover:scale-105 transition duration-300">
+                    <div class="text-green-400 text-4xl mb-4">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Elite Program</h3>
+                    <p class="mb-6">
+                        Comprehensive 12-week program including all aspects of player development for serious athletes looking to reach the next level.
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Full assessment
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Nutrition guidance
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Mental training
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                            Scouting support
+                        </li>
+                    </ul>
+                    <div class="text-xl font-bold text-green-400 mb-4">$1,999/program</div>
+                    <a href="#contact" class="inline-block bg-green-600 hover:bg-green-700 px-6 py-2 rounded-full font-bold transition duration-300">
+                        BOOK NOW
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">PLAYER TESTIMONIALS</h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-900 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="image-placeholder rounded-full h-16 w-16 flex items-center justify-center">
+                            <i class="fas fa-user text-2xl text-gray-300"></i>
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-bold">James Rodriguez</div>
+                            <div class="text-sm text-gray-400">College Scholarship Recipient</div>
+                        </div>
+                    </div>
+                    <p class="italic">
+                        "The training completely transformed my game. After just 3 months, I went from bench player to team captain and earned a Division 1 scholarship. The personalized attention to my weak foot and tactical awareness made all the difference."
+                    </p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-900 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="image-placeholder rounded-full h-16 w-16 flex items-center justify-center">
+                            <i class="fas fa-user text-2xl text-gray-300"></i>
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-bold">Sarah Johnson</div>
+                            <div class="text-sm text-gray-400">Professional Player</div>
+                        </div>
+                    </div>
+                    <p class="italic">
+                        "I was struggling with confidence after an injury, but the mental training and customized recovery program got me back stronger than ever. Now playing professionally overseas thanks to the scouting connections provided."
+                    </p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2 bg-gray-900 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="image-placeholder rounded-full h-16 w-16 flex items-center justify-center">
+                            <i class="fas fa-user text-2xl text-gray-300"></i>
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-bold">Michael Chen</div>
+                            <div class="text-sm text-gray-400">Youth Academy Player</div>
+                        </div>
+                    </div>
+                    <p class="italic">
+                        "As a young player, the fundamentals training helped me develop proper technique from the start. The coach's attention to detail in my first touch and passing accuracy helped me stand out at tryouts and earn a spot in the academy program."
+                    </p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">GET IN TOUCH</h2>
+                <div class="w-20 h-1 bg-green-500 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h3 class="text-2xl font-bold mb-6">Ready to Elevate Your Game?</h3>
+                    <p class="mb-8">
+                        Fill out the form or contact me directly to schedule your first session. I'll get back to you within 24 hours to discuss your goals and create a customized training plan.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="bg-green-600 p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold">Training Location</div>
+                                <div class="text-gray-400">123 Soccer Way, Sports City</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-green-600 p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold">Email</div>
+                                <div class="text-gray-400">coach@elitefootball.com</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-green-600 p-3 rounded-full mr-4">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold">Phone</div>
+                                <div class="text-gray-400">(555) 123-4567</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-bold mb-4">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="bg-gray-800 hover:bg-gray-700 p-3 rounded-full transition duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <form class="bg-gray-800 p-8 rounded-xl">
+                        <div class="mb-6">
+                            <label class="block mb-2 font-bold">Full Name</label>
+                            <input type="text" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block mb-2 font-bold">Email</label>
+                            <input type="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block mb-2 font-bold">Phone</label>
+                            <input type="tel" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block mb-2 font-bold">Interested In</label>
+                            <select class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option>Select a service</option>
+                                <option>Individual Training</option>
+                                <option>Small Group Training</option>
+                                <option>Elite Program</option>
+                                <option>Other Inquiry</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block mb-2 font-bold">Message</label>
+                            <textarea rows="4" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 py-3 rounded-lg font-bold transition duration-300">
+                            SEND MESSAGE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-950 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-2xl font-bold mb-6 md:mb-0">
+                    <span class="text-green-300">ELITE</span>
+                    <span class="text-white">FOOTBALL</span>
+                </div>
+                
+                <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0 text-center">
+                    <a href="#" class="hover:text-green-400 transition duration-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-green-400 transition duration-300">Terms of Service</a>
+                    <a href="#" class="hover:text-green-400 transition duration-300">FAQ</a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+                &copy; 2023 Elite Football Performance Coaching. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple JavaScript for mobile menu toggle (can be expanded)
+        document.querySelector('button').addEventListener('click', function() {
+            const navLinks = document.querySelector('.hidden.md\\:flex');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+            navLinks.classList.toggle('flex-col');
+            navLinks.classList.toggle('absolute');
+            navLinks.classList.toggle('top-20');
+            navLinks.classList.toggle('right-6');
+            navLinks.classList.toggle('bg-gray-900');
+            navLinks.classList.toggle('p-4');
+            navLinks.classList.toggle('rounded-lg');
+            navLinks.classList.toggle('shadow-lg');
+            navLinks.classList.toggle('space-y-4');
         });
-    }
-
-    function toggleSlots(day) {
-        const container = document.getElementById(`slots-${day}`);
-        if (container.style.display === "none" || container.innerHTML === "") {
-            container.style.display = "flex";
-            generateTimeSlots(day);
-        } else {
-            container.style.display = "none";
-        }
-    }
-
-    function isWeekday(day) {
-        return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].includes(day);
-    }
-</script>
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
