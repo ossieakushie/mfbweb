@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Football Tactics Board</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #pitch {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: url('https://static.vecteezy.com/system/resources/previews/005/961/252/original/top-view-of-green-football-pitch-or-soccer-field-vector.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    .player {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .teamA {
+      background-color: red;
+    }
+
+    .teamB {
+      blue;
+    }
+  </style>
+</head>
+<body>
+  <div id="pitch"></div>
+
+  <script>
+    const pitch = document.getElementById('pitch');
+
+    // Create players for two teams
+    const teamAColor = 'teamA';
+    const teamBColor = 'teamB';
+    const playersPerTeam = 11;
+
+    function createPlayer(x, y, teamClass) {
+      const player = document.createElement('div');
+      player.classList.add('player', teamClass);
+      player.style.left = `${x}px`;
+      player.style.top = `${y}px`;
+      pitch.appendChild(player);
+
+      let offsetX, offsetY;
+
+      player.addEventListener('mousedown', (e) => {
+        offsetX = e.clientX - player.offsetLeft;
+        offsetY = e.clientY - player.offsetTop;
+        player.style.cursor = 'grabbing';
+
+        function onMouseMove(e) {
+          player.style.left = `${e.clientX - offsetX}px`;
+          player.style.top = `${e.clientY - offsetY}px`;
+        }
+
+        function onMouseUp() {
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+          player.style.cursor = 'grab';
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+    }
+
+    // Position players in initial formation
+    for (let i = 0; i < playersPerTeam; i++) {
+      createPlayer(100 + i * 40, 200, teamAColor);
+      createPlayer(100 + i * 40, 500, teamBColor);
+    }
+  </script>
+</body>
+</html>
