@@ -15,7 +15,7 @@
       position: relative;
       width: 100vw;
       height: 100vh;
-      background: url('https://static.vecteezy.com/system/resources/previews/005/961/252/original/top-view-of-green-football-pitch-or-soccer-field-vector.jpg') no-repeat center center;
+      background: url('images/pitch.png') no-repeat center center;
       background-size: cover;
     }
 
@@ -33,7 +33,7 @@
     }
 
     .teamB {
-      blue;
+      background-color: blue;
     }
   </style>
 </head>
@@ -42,8 +42,6 @@
 
   <script>
     const pitch = document.getElementById('pitch');
-
-    // Create players for two teams
     const teamAColor = 'teamA';
     const teamBColor = 'teamB';
     const playersPerTeam = 11;
@@ -78,7 +76,6 @@
       });
     }
 
-    // Position players in initial formation
     for (let i = 0; i < playersPerTeam; i++) {
       createPlayer(100 + i * 40, 200, teamAColor);
       createPlayer(100 + i * 40, 500, teamBColor);
